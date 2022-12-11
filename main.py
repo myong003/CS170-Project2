@@ -1,5 +1,6 @@
 import sys
 import math
+import time
 
 class Ob:
     def __init__(self, classType, features):
@@ -62,7 +63,7 @@ algorithmType = 0
 while algorithmType != "1" and algorithmType != "2":
     algorithmType = input("Type the number of the algorithm you want to run. \n1. Forward Selection\n2. Backward Elimination\n")
 
-with open("CS170_Small_Data__1.txt") as file:
+with open("Datasets/CS170_Small_Data__6.txt") as file:
     lines = [line.rstrip() for line in file]
 
 maxNumFeatures = len(lines[0].split()) - 1
@@ -73,6 +74,7 @@ bestFeatures = []
 bestAccuracy = 0
 numFeatures = 1
 
+starttime = time.perf_counter()
 if algorithmType == "1":
     currentFeatures = [[1], [2], [3], [4], [5], [6]]
 
@@ -136,5 +138,7 @@ elif algorithmType == "2":
 
 
 bestFeatures.sort()
+endTime = time.perf_counter()
+print("Finished search in " + str(round(endTime - starttime, 2)) + " seconds.")
 print("Features " + str(bestFeatures) + " has the best overall accuracy of " + str(bestAccuracy))
 
