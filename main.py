@@ -13,17 +13,15 @@ class Ob:
 
 def GetDistance(ob1, ob2):
     # dist1 = (ob1.f1 - ob2.f1) * (ob1.f1 - ob2.f1)
-    # dist2 = (ob1.f2 - ob2.f2) * (ob1.f2 - ob2.f2)
-    dist3 = (float(ob1.f3) - float(ob2.f3)) * (float(ob1.f3) - float(ob2.f3))
+    # dist2 = (float(ob1.f2) - float(ob2.f2)) * (float(ob1.f2) - float(ob2.f2))
+    # dist3 = (float(ob1.f3) - float(ob2.f3)) * (float(ob1.f3) - float(ob2.f3))
     dist4 = (float(ob1.f4) - float(ob2.f4)) * (float(ob1.f4) - float(ob2.f4))
     dist5 = (float(ob1.f5) - float(ob2.f5)) * (float(ob1.f5) - float(ob2.f5))
     dist6 = (float(ob1.f6) - float(ob2.f6)) * (float(ob1.f6) - float(ob2.f6))
-    dist7 = (float(ob1.f7) - float(ob2.f7)) * (float(ob1.f7) - float(ob2.f7))
-    # dist4 = (ob1.f4 - ob2.f4) * (ob1.f4 - ob2.f4)
-    # dist5 = (ob1.f5 - ob2.f5) * (ob1.f5 - ob2.f5)
-    # dist6 = (ob1.f6 - ob2.f6) * (ob1.f6 - ob2.f6)
-    # dist7 = (ob1.f7 - ob2.f7) * (ob1.f7 - ob2.f7)
-    return math.sqrt(dist3 + dist4 + dist5 + dist6 + dist7)
+    # dist7 = (float(ob1.f7) - float(ob2.f7)) * (float(ob1.f7) - float(ob2.f7))
+
+    return math.sqrt(dist4 + dist5 + dist6)
+    # return math.sqrt(dist2 + dist3 + dist4 + dist5 + dist6 + dist7)
 
 with open("CS170_Small_Data__1.txt") as file:
     lines = [line.rstrip() for line in file]
@@ -37,6 +35,7 @@ for i in range(len(lines)) :
 
     minDistance = sys.maxsize
     minLocation = sys.maxsize
+    minType = 0
 
     for k in range(len(lines)) :
         if k != i:
@@ -46,12 +45,13 @@ for i in range(len(lines)) :
             if distance < minDistance:
                 minDistance = distance
                 minLocation = k
+                minType = newOb2.f1
 
-    # print("Object " + newOb.f1 + " is class " + newOb.f2)
-    # print("It's nearest neighbor is " + minLocation + " which is in class " + lines[minLocation][1])
+    print("Object " + newOb.f1 + " is class " + newOb.f2)
+    print("It's nearest neighbor is " + str(minLocation) + " which is in class " + minType)
 
-    if newOb.f2 == lines[minLocation][1]:
+    if newOb.f1 == minType:
         numCorrect += 1
 
 accuracy = numCorrect / len(lines)
-print(numCorrect)
+print(accuracy)
