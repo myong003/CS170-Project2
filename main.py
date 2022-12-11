@@ -62,7 +62,7 @@ def BuildNearestNeighbor(featuresToUse):
 # while algorithmType != "1" and algorithmType != "2":
 #     algorithmType = input("Type the number of the algorithm you want to run. \n1. Forward Selection\n2. Backward Elimination\n")
 
-with open("CS170_Large_Data__10.txt") as file:
+with open("CS170_Small_Data__1.txt") as file:
     lines = [line.rstrip() for line in file]
 
 maxNumFeatures = len(lines[0].split()) - 1
@@ -72,9 +72,43 @@ currBestFeatures = []
 maxAccuracy = 0
 bestFeatures = []
 bestAccuracy = 0
-
-currentFeatures = [[1], [2], [3], [4], [5], [6]]
 numFeatures = 1
+
+# currentFeatures = [[1], [2], [3], [4], [5], [6]]
+
+# while numFeatures < maxNumFeatures:
+#     maxAccuracy = 0
+#     for features in currentFeatures:
+#         tempAccuracy = BuildNearestNeighbor(features)
+
+#         if tempAccuracy > maxAccuracy:
+#             currBestFeature = features[numFeatures - 1]
+#             currBestFeatures = features
+#             maxAccuracy = tempAccuracy
+        
+#         print("Features " + str(features) + " has " + str(tempAccuracy) + " accuracy")
+    
+#     if maxAccuracy > bestAccuracy:
+#         bestAccuracy = maxAccuracy
+#         bestFeatures = currBestFeatures
+
+#     print("Current best feature added is " + str(currBestFeature))
+
+#     currentFeatures.clear()
+#     for index in range(maxNumFeatures):
+#         if (index + 1) not in currBestFeatures:
+#             newList = currBestFeatures.copy()
+#             newList.append(index + 1)
+#             currentFeatures.append(newList)
+    
+#     numFeatures += 1
+
+tempFeatures = []
+for num in range(1, maxNumFeatures):
+    tempFeatures.append(num)
+
+currentFeatures = []
+currentFeatures.append(tempFeatures.copy())
 
 while numFeatures < maxNumFeatures:
     maxAccuracy = 0
@@ -82,7 +116,6 @@ while numFeatures < maxNumFeatures:
         tempAccuracy = BuildNearestNeighbor(features)
 
         if tempAccuracy > maxAccuracy:
-            currBestFeature = features[numFeatures - 1]
             currBestFeatures = features
             maxAccuracy = tempAccuracy
         
@@ -92,14 +125,11 @@ while numFeatures < maxNumFeatures:
         bestAccuracy = maxAccuracy
         bestFeatures = currBestFeatures
 
-    print("Current best feature added is " + str(currBestFeature))
 
     currentFeatures.clear()
-    for index in range(maxNumFeatures):
-        if (index + 1) not in currBestFeatures:
-            newList = currBestFeatures.copy()
-            newList.append(index + 1)
-            currentFeatures.append(newList)
+    for index in range(maxNumFeatures - numFeatures):
+        currentFeatures.append(currBestFeatures.copy())
+        currentFeatures[index].pop(index)
     
     numFeatures += 1
 
